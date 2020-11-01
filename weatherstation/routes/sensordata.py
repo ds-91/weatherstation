@@ -24,3 +24,12 @@ def get_all_data():
     data = SensorData.find_all()
 
     return jsonify(data), 200
+
+@app.route('/recent', methods=['GET'])
+def get_most_recent_data():
+    data = SensorData.get_most_recent()
+
+    if not data:
+        return 404
+
+    return jsonify(data), 200

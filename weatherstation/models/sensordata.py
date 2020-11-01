@@ -38,6 +38,15 @@ class SensorData(db.Model):
             all_data.append(sensor.to_json())
 
         return all_data
+    
+    def get_most_recent():
+        query_results = SensorData.query.order_by(SensorData.date.desc()).first()
+        obj = SensorData(query_results.date, query_results.temperature,\
+                         query_results.humidity)
+        
+        return obj.to_json()
+
+
 
     def convert_date_to_string(date):
         return date.strftime('%m/%d/%Y %H:%M:%S')
