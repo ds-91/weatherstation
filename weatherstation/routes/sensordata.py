@@ -12,8 +12,9 @@ def add_data():
     date = datetime.utcnow()
     temperature = data['temperature']
     humidity = data['humidity']
+    pressure = data['pressure']
 
-    sensor = SensorData(date, temperature, humidity)
+    sensor = SensorData(date, temperature, humidity, pressure)
     sensor.save()
     sensor_json = sensor.to_json()
 

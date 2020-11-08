@@ -14,7 +14,7 @@ import requests
 
 class TestSensorData(unittest.TestCase):
     def create_fake_object(self):
-        return SensorData(datetime.utcnow(), 99, 99)
+        return SensorData(datetime.utcnow(), 99, 99, 99)
 
     def test_object_creation(self):
         obj = self.create_fake_object()
@@ -24,7 +24,8 @@ class TestSensorData(unittest.TestCase):
     def test_object_to_json(self):
         obj = self.create_fake_object()
         
-        j = {'date': datetime.utcnow(), 'temperature': 99, 'humidity': 99}
+        j = {'date': datetime.utcnow(), 'temperature': 99, 'humidity': 99, \
+            'pressure': 99}
         
         self.assertAlmostEqual(obj.to_json(), j)
 

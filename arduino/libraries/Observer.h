@@ -2,5 +2,5 @@
 
 class Observer {
 public:
-	virtual void update(float temperature, float humidity) = 0;
+	virtual void update(float temperature, float humidity, float pressure) = 0;
 };

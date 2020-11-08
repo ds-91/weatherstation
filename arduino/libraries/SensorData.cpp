@@ -1,9 +1,10 @@
 #include "Arduino.h"
 #include "SensorData.h"
 
-void SensorData::setState(float temperature, float humidity) {
+void SensorData::setState(float temperature, float humidity, float pressure) {
     this->temperature = temperature;
     this->humidity = humidity;
+    this->pressure = pressure;
 
     notifyObservers();
 }
@@ -25,5 +26,5 @@ void SensorData::notifyObservers() {
     // each observer's 'update' method.
     // See observers array initializtion.
     //this->observers[0]->update(this->temperature, this->humidity);
-    observer->update(temperature, humidity);
+    observer->update(temperature, humidity, pressure);
 }

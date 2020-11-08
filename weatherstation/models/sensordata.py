@@ -7,17 +7,20 @@ class SensorData(db.Model):
     date = db.Column(DateTime(timezone=False))
     temperature = db.Column(Integer, nullable=False)
     humidity = db.Column(Integer, nullable=False)
+    pressure = db.Column(Integer, nullable=False)
 
-    def __init__(self, date, temperature, humidity):
+    def __init__(self, date, temperature, humidity, pressure):
         self.date = date
         self.temperature = temperature
         self.humidity = humidity
+        self.pressure = pressure
 
     def to_json(self):
         data = {
             'date': self.date,
             'temperature': self.temperature,
             'humidity': self.humidity,
+            'pressure': self.pressure,
         }
 
         return data

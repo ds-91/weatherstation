@@ -37,12 +37,14 @@ class TestApiEndpoints(unittest.TestCase):
     def test_add(self):
         temperature = 50.0
         humidity = 100
+        pressure = 500
 
         url = 'http://127.0.0.1:5000/add'
 
         sensor_json = {
             "temperature": temperature,
-            "humidity": humidity
+            "humidity": humidity,
+            "pressure": pressure
         }
 
         res = requests.post(url=url, json=sensor_json)
