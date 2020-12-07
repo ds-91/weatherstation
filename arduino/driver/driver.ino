@@ -11,8 +11,9 @@
 #define SENSOR_READ_DELAY_MS 300000 // 5 minutes 300000
 #define PASCALS_TO_IN_HG 3377
 
-const char* ssid = "REMOVED";
-const char* pass = "REMOVED";
+const char* ssid = "florida15";
+const char* pass = "RemyBellaCoco3";
+const uint8_t VIB_PIN = 14;
 
 SensorData data;
 CurrentData current;
@@ -33,7 +34,8 @@ void setup() {
     Serial.println("Connecting to WiFi...");
   }
 
-  Serial.println("Connected established!");
+  Serial.println("Connection established!");
+  pinMode(VIB_PIN, INPUT);
   dht.begin();
   bmp.begin();
 
@@ -44,19 +46,18 @@ void loop() {
   float humidity = dht.readHumidity();
   float temperature = dht.readTemperature(true);
   float pressure = bmp.readPressure() / PASCALS_TO_IN_HG;
+  int vibration = digitalRead(VIB_PIN);
 
   if (isnan(humidity) || isnan(temperature)) {
     Serial.println("Failed to read from DHT sensor!");
-    return;
   }
 
   if (isnan(pressure)) {
     Serial.println("Failed to read from BMP sensor!");
-    return;
   }
   
   if (WiFi.status() == WL_CONNECTED) {
-    data.setState(temperature, humidity, pressure);
+    data.setState(temperature, humidity, pressure, vibration);
   }
 
   delay(SENSOR_READ_DELAY_MS);

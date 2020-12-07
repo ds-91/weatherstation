@@ -1,5 +1,6 @@
 from weatherstation import app
+from flask import render_template
 
 @app.route('/')
 def root():
-    return 'root!', 200
+    return render_template('index.html')

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>weatherstation</title>
+    </head>
+    <body>
+        <div align="center" id="historyplot">
+            <div id="stats">
+                <p>Current Readings:</p>
+                <p id="temperature">Temperature: 0</p>
+                <p id="humidity">Humidity: 0</p>
+                <p id="pressure">Pressure: 0</p>
+            </div>
+            <label for="plot">Most recent 6 hours</label>
+            <br />
+            <img id="plot" src="../static/past_6_hours.png">
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('starting')
+                fetch('http://127.0.0.1:5000/recent', {
+                    headers : { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        document.getElementById('temperature').innerHTML = "Temperature: " + data['temperature']
+                        document.getElementById('humidity').innerHTML = "humidity: " + data['humidity']
+                        document.getElementById('pressure').innerHTML = "pressure: " + data['pressure']
+                    })
+                    .catch(err => {
+                        console.log("Error Reading data " + err);
+                    });
+            });
+        </script>
+    </body>
+</html>

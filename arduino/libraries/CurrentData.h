@@ -2,5 +2,5 @@
 
 class CurrentData : public Observer {
 public:
-    virtual void update(float temperature, float humidity, float pressure);
+    virtual void update(float temperature, float humidity, float pressure, int vibration);
 };

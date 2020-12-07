@@ -3,18 +3,19 @@ from weatherstation.models.sensordata import SensorData
 from datetime import datetime
 from flask import request, jsonify
 
-import json
+import json, time
 
 @app.route('/add', methods=['POST'])
 def add_data():
     data = request.get_json()
 
-    date = datetime.utcnow()
+    date = int(time.time())
     temperature = data['temperature']
     humidity = data['humidity']
     pressure = data['pressure']
+    vibration = data['vibration']
 
-    sensor = SensorData(date, temperature, humidity, pressure)
+    sensor = SensorData(date, temperature, humidity, pressure, vibration)
     sensor.save()
     sensor_json = sensor.to_json()
 
@@ -29,6 +30,7 @@ def get_all_data():
 @app.route('/recent', methods=['GET'])
 def get_most_recent_data():
     data = SensorData.get_most_recent()
+    SensorData.get_plot_from_past_6_hours()
 
     if not data:
         return 404
